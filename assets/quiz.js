@@ -29,3 +29,26 @@ for (var i = 0; i < questions.length; i++) {
 }
 //Show total score at the end
 alert( 'You got'+ score + '/' + questions.length);
+
+// Adding the addEventListener
+
+//Creates Variable to hold the count
+
+var count = 5;
+
+//Use the querySelector to select the elements by their ids
+var countEl = document.querySelector('#count');
+var decrementEl = document.querySelector('#decrement');
+
+//Displays current count on the page
+function setCounterText() {
+    countEl.textContent = count;
+};
+//Decrements the count on click and calls setCounterText()
+decrementEl.addEventListener('click', function() {
+    if (count > 5) {
+        count--;
+        setCounterText();
+    }
+});
+
