@@ -30,6 +30,60 @@ for (var i = 0; i < questions.length; i++) {
 //Show total score at the end
 alert( 'You got'+ score + '/' + questions.length);
 
+//Adding the Timer
+var timerEl = document.getElementById('countdown');
+var mainEl = document.getElementById('main');
+var startBtn = document.getElementById('start');
+
+var message = 
+'Game Over!';
+var words = message.split(' ');
+
+
+//Timer that counts down from 5
+function countdown() {
+   var timeLeft = 5;
+
+   //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
+   var timeInterval = setInterval(function() {
+       //As long as the 'timeleft' is greater than 1
+       if (timeLeft > 1) {
+           //Set the 'textContent' of the 'timerEl' to show the remaining seconds
+           timerEl.textContent = timeLeft = 'seconds remaining';
+           //Decrement 'timeleft' by 1
+           timeLeft--;
+
+       }else if (timeLeft ===1) {
+           //When time left is equal to 1, rename to 'second' instead of seconds
+           timerEl.textContent = timeLeft + 'second remaining';
+           timeLeft--;
+       } else {
+           //Once 'timeLeft' gets to 0, set 'timerEl' to an empty string
+           timerEl.textContent = '';
+           //Use 'clearInterval()' to stop the timer
+           clearInterval(timeInterval);
+           //Call the 'displayMessage() function
+           displayMessage();
+       }
+
+   }, 1000);
+}
+//Displays the message one word at a time
+function displayMessage() {
+    var wordCount = 0;
+    // Uses the 'setInterval()' method to call a function to be executed ecery 300 milliseconds
+    var msgInterval = setInterval(function() {
+        if (words[wordcount] === undefined) {
+          clearInterval(msgInterval);
+        } else {
+            mainEl.textContent = words[wordCount];
+            wordcount++;
+        }
+    }, 300);
+}
+startBtn.onclick = countdown;
+
+
 // Adding the addEventListener
 
 //Creates Variable to hold the count
