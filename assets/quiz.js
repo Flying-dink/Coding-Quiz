@@ -1,11 +1,25 @@
+
+var startBtn = document.querySelector("#start")
+
+
+
+
+
 var questions = [
-    { q: "Are Loops used in JavaScript?", a : "y"},
-    { q: "Is JavaScript difficult to learn?", a: "y"},
-    { q: "Can a sophistcated website be written in 10 minutes?", a: "n"},
-    { q: "Are there many keyboard shortcuts?", a: "y"},
-    { q: "Is coding fun?", a: "y"},
+
+    { q: "Are Loops used in JavaScript?", a : true},
+    { q: "Is JavaScript difficult to learn?", a: false},
+    { q: "Can a sophistcated website be written in 10 minutes?", a: false},
+    { q: "Are there many keyboard shortcuts?", a: true},
+    { q: "Is coding fun?", a: true},
 
 ];
+
+
+ function displayQuestions(){
+    
+
+
 
 //game starts with a score of 0.
 var score = 0;
@@ -13,12 +27,11 @@ var score = 0;
 for (var i = 0; i < questions.length; i++) {
     //show current question to user and ask ok /cancel
     var answer = confirm(questions[i].q);
-
+    var trueAnswer = questions[i].a
     //compare answers
-    if (
-     (answer === true && questions [i].answer ==="y") ||
-     (answer === false && questions [i].answer ==="n")
-    ) {
+    if (answer && trueAnswer)
+     
+     {
         // Increase score
         score++;
         //Alert the user
@@ -29,6 +42,7 @@ for (var i = 0; i < questions.length; i++) {
 }
 //Show total score at the end
 alert( 'You got'+ score + '/' + questions.length);
+}
 
 //Adding the Timer
 var timerEl = document.getElementById('countdown');
@@ -38,6 +52,15 @@ var startBtn = document.getElementById('start');
 var message = 
 'Game Over!';
 var words = message.split(' ');
+function endGame(){
+    var submitScore = document.querySelector(".submit-score")
+    var container = document.querySelector(".container")
+    submitScore.style.display="block"
+    container.style.display="none"
+    console.log("abc")
+    //Event will be triggered when game is over
+    // show a submit score screen div in html
+}
 
 
 //Timer that counts down from 5
@@ -46,10 +69,12 @@ function countdown() {
 
    //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
    var timeInterval = setInterval(function() {
+
+    console.log(timeLeft)
        //As long as the 'timeleft' is greater than 1
        if (timeLeft > 1) {
            //Set the 'textContent' of the 'timerEl' to show the remaining seconds
-           timerEl.textContent = timeLeft = 'seconds remaining';
+           timerEl.textContent = timeLeft + 'seconds remaining';
            //Decrement 'timeleft' by 1
            timeLeft--;
 
@@ -68,20 +93,20 @@ function countdown() {
 
    }, 1000);
 }
-//Displays the message one word at a time
-function displayMessage() {
-    var wordCount = 0;
-    // Uses the 'setInterval()' method to call a function to be executed ecery 300 milliseconds
-    var msgInterval = setInterval(function() {
-        if (words[wordcount] === undefined) {
-          clearInterval(msgInterval);
-        } else {
-            mainEl.textContent = words[wordCount];
-            wordcount++;
-        }
-    }, 300);
-}
-startBtn.onclick = countdown;
+// //Displays the message one word at a time
+// function displayMessage() {
+//     var wordCount = 0;
+//     // Uses the 'setInterval()' method to call a function to be executed every 300 milliseconds
+//     var msgInterval = setInterval(function() {
+//         if (words[wordcount] === undefined) {
+//           clearInterval(msgInterval);
+//         } else {
+//             mainEl.textContent = words[wordCount];
+//             wordcount++;
+//         }
+//     }, 300);
+// }
+// startBtn.onclick = countdown;
 
 
 // Adding the addEventListener
@@ -99,10 +124,39 @@ function setCounterText() {
     countEl.textContent = count;
 };
 //Decrements the count on click and calls setCounterText()
-decrementEl.addEventListener('click', function() {
-    if (count > 5) {
-        count--;
-        setCounterText();
-    }
+startBtn.addEventListener('click', function() {
+    var timeLeft = 5;
+
+    //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
+    var timeInterval = setInterval(function() {
+ 
+     console.log(timeLeft)
+        //As long as the 'timeleft' is greater than 1
+        if (timeLeft > 1) {
+            //Set the 'textContent' of the 'timerEl' to show the remaining seconds
+            timerEl.textContent = timeLeft + 'seconds remaining';
+            //Decrement 'timeleft' by 1
+            timeLeft--;
+ 
+        }else if (timeLeft ===1) {
+            //When time left is equal to 1, rename to 'second' instead of seconds
+            timerEl.textContent = timeLeft + 'second remaining';
+            timeLeft--;
+        } else {
+            //Once 'timeLeft' gets to 0, set 'timerEl' to an empty string
+            timerEl.textContent = '';
+            //Use 'clearInterval()' to stop the timer
+            clearInterval(timeInterval);
+            //Call the 'displayMessage() function
+            endGame()
+        }
+ 
+    }, 1000);
+
+
+
+
+displayQuestions()    
+    
 });
 
