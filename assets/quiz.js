@@ -156,7 +156,17 @@ startBtn.addEventListener('click', function() {
 
 
 
-displayQuestions()    
+displayQuestions()  
     
 });
+
+//use local storage to store score and initials
+var score = 0;
+var highscore = 0;
+localStorage.setItem("highscore",0);
+
+if (score > parseInt(localStorage.getItem("highscore"))) {
+    localStorage.setItem("hightscore,score");
+}
+
 
