@@ -9,16 +9,22 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="welcome">Are you Ready To Test your Knowledge?</h1>
-        <button id="start">Start</button>
-        <h2 id="countdown"></h2>
+        <div id="startArea">
+            <h1 class="welcome">Are you Ready To Test your Knowledge?</h1>
+            <button id="start">Start</button>
+            <h2 id="countdown"></h2>
+        </div>
+        
         <p id="main"></p>
+        <div id="answers"></div>
+        <p id="feedback"></p>
     </div>
     <div class= "submit-score">
-
+        <h2 id="endScore"></h2>
         <input type="text" id="initals">
         <button id= "submit-button">Submit Score and Initials</button>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./assets/quiz.js"></script>
 </body>
 </html>

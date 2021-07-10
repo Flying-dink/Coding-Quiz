@@ -1,47 +1,68 @@
-
 var startBtn = document.querySelector("#start")
+var questionHolder= document.querySelector("#main")
+var score;
 
-
-
-
-
-var questions = [
-
-    { q: "Are Loops used in JavaScript?", a : true},
-    { q: "Is JavaScript difficult to learn?", a: false},
-    { q: "Can a sophistcated website be written in 10 minutes?", a: false},
-    { q: "Are there many keyboard shortcuts?", a: true},
-    { q: "Is coding fun?", a: true},
-
+var questions = [                                                                                                                                                                      
+  { q: "Are Loops used in JavaScript?", a : 'True', options: ['True', 'False']},
+  { q: "Is JavaScript difficult to learn?", a: 'False', options: ['True', 'False']},
+  { q: "Can a sophistcated website be written in 10 minutes?", a: 'False', options: ['True', 'False']},
+  { q: "Are there many keyboard shortcuts?", a: 'True', options: ['True', 'False']},
+  { q: "Is coding fun?", a: 'True', options: ['True', 'False']}
 ];
 
 
- function displayQuestions(){
-    
+function displayQuestions(){
+$('#startArea').hide();
 
-
+//make a new function for prinitng/ rendering questions to the page
 
 //game starts with a score of 0.
-var score = 0;
+ score = 0;
 //Loop over every question object
-for (var i = 0; i < questions.length; i++) {
-    //show current question to user and ask ok /cancel
-    var answer = confirm(questions[i].q);
-    var trueAnswer = questions[i].a
-    //compare answers
-    if (answer && trueAnswer)
-     
-     {
-        // Increase score
-        score++;
-        //Alert the user
-        alert('Correct!');
-    }   else{
-        alert('Wrong!');
+var questionNumber = questions.length;
+var current = 0;
+
+
+
+//show current question to user and ask ok /cancel
+//repalce confirm with render questions
+//var answer = confirm(questions[i].q);
+
+renderQuestion(current);
+
+$(document).on('click', '.option',function(){
+    var optionSelected = $(this).text();
+    if(optionSelected === questions[current].a){
+        score++
+        $('#feedback').text('You got it right!')
+    }else{
+        $('#feedback').text('You got it wrong!')
     }
+    if(current < questions.length -1){
+        current++;
+        setTimeout(function(){
+            renderQuestion(current);
+        },2000)
+   
+    }else{
+        setTimeout(function(){
+            endGame();
+        },2000)
+    }
+})
+
 }
-//Show total score at the end
-alert( 'You got'+ score + '/' + questions.length);
+
+function renderQuestion(current){
+    $('#answers').empty();
+    $('#feedback').empty();
+    questionHolder.innerText = '';
+    questionHolder.innerText=questions[current].q;
+    questions[current].options.forEach(function(option){
+        var answer = $('<button>').addClass('option')
+        answer.text(option);
+            $('#answers').append(answer);
+    })
 }
 
 //Adding the Timer
@@ -49,71 +70,19 @@ var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
 
-var message = 
-'Game Over!';
+var message = 'Game Over!';
 var words = message.split(' ');
+
 function endGame(){
     var submitScore = document.querySelector(".submit-score")
     var container = document.querySelector(".container")
+    $('#endScore').text(score)
     submitScore.style.display="block"
     container.style.display="none"
-    console.log("abc")
-    //Event will be triggered when game is over
-    // show a submit score screen div in html
 }
 
 
-//Timer that counts down from 5
-function countdown() {
-   var timeLeft = 5;
-
-   //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
-   var timeInterval = setInterval(function() {
-
-    console.log(timeLeft)
-       //As long as the 'timeleft' is greater than 1
-       if (timeLeft > 1) {
-           //Set the 'textContent' of the 'timerEl' to show the remaining seconds
-           timerEl.textContent = timeLeft + 'seconds remaining';
-           //Decrement 'timeleft' by 1
-           timeLeft--;
-
-       }else if (timeLeft ===1) {
-           //When time left is equal to 1, rename to 'second' instead of seconds
-           timerEl.textContent = timeLeft + 'second remaining';
-           timeLeft--;
-       } else {
-           //Once 'timeLeft' gets to 0, set 'timerEl' to an empty string
-           timerEl.textContent = '';
-           //Use 'clearInterval()' to stop the timer
-           clearInterval(timeInterval);
-           //Call the 'displayMessage() function
-           displayMessage();
-       }
-
-   }, 1000);
-}
-// //Displays the message one word at a time
-// function displayMessage() {
-//     var wordCount = 0;
-//     // Uses the 'setInterval()' method to call a function to be executed every 300 milliseconds
-//     var msgInterval = setInterval(function() {
-//         if (words[wordcount] === undefined) {
-//           clearInterval(msgInterval);
-//         } else {
-//             mainEl.textContent = words[wordCount];
-//             wordcount++;
-//         }
-//     }, 300);
-// }
-// startBtn.onclick = countdown;
-
-
-// Adding the addEventListener
-
-//Creates Variable to hold the count
-
-var count = 5;
+var count = 50;
 
 //Use the querySelector to select the elements by their ids
 var countEl = document.querySelector('#count');
@@ -123,24 +92,23 @@ var decrementEl = document.querySelector('#decrement');
 function setCounterText() {
     countEl.textContent = count;
 };
+//save score in addevent listener
 //Decrements the count on click and calls setCounterText()
 startBtn.addEventListener('click', function() {
     var timeLeft = 5;
 
     //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function() {
- 
-     console.log(timeLeft)
         //As long as the 'timeleft' is greater than 1
         if (timeLeft > 1) {
             //Set the 'textContent' of the 'timerEl' to show the remaining seconds
-            timerEl.textContent = timeLeft + 'seconds remaining';
+            timerEl.textContent = timeLeft + ' seconds remaining';
             //Decrement 'timeleft' by 1
             timeLeft--;
  
         }else if (timeLeft ===1) {
             //When time left is equal to 1, rename to 'second' instead of seconds
-            timerEl.textContent = timeLeft + 'second remaining';
+            timerEl.textContent = timeLeft + ' second remaining !';
             timeLeft--;
         } else {
             //Once 'timeLeft' gets to 0, set 'timerEl' to an empty string
@@ -154,19 +122,18 @@ startBtn.addEventListener('click', function() {
     }, 1000);
 
 
-
-
 displayQuestions()  
     
 });
 
 //use local storage to store score and initials
-var score = 0;
-var highscore = 0;
-localStorage.setItem("highscore",0);
 
-if (score > parseInt(localStorage.getItem("highscore"))) {
-    localStorage.setItem("hightscore,score");
-}
+var highscore = {
+  'initials': score} 
+
+  var highscoreString =JSON.stringify(highscore);
+  localStorage.setItem(highscore,highscoreString);
+
+
 
 
