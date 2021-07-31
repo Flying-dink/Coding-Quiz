@@ -1,6 +1,7 @@
 var startBtn = document.querySelector("#start")
 var questionHolder= document.querySelector("#main")
 var score;
+var timeLeft;
 
 var questions = [                                                                                                                                                                      
   { q: "Are Loops used in JavaScript?", a : 'True', options: ['True', 'False']},
@@ -13,22 +14,9 @@ var questions = [
 
 function displayQuestions(){
 $('#startArea').hide();
-
-//make a new function for prinitng/ rendering questions to the page
-
-//game starts with a score of 0.
  score = 0;
-//Loop over every question object
-var questionNumber = questions.length;
-var current = 0;
-
-
-
-//show current question to user and ask ok /cancel
-//repalce confirm with render questions
-//var answer = confirm(questions[i].q);
-
-renderQuestion(current);
+ var current = 0;
+ renderQuestion(current);
 
 $(document).on('click', '.option',function(){
     var optionSelected = $(this).text();
@@ -36,17 +24,18 @@ $(document).on('click', '.option',function(){
         score++
         $('#feedback').text('You got it right!')
     }else{
+        timeLeft -= 5;
         $('#feedback').text('You got it wrong!')
     }
     if(current < questions.length -1){
         current++;
         setTimeout(function(){
-            renderQuestion(current);
+        renderQuestion(current);
         },2000)
    
     }else{
         setTimeout(function(){
-            endGame();
+        endGame();
         },2000)
     }
 })
@@ -65,40 +54,6 @@ function renderQuestion(current){
     })
 }
 
-//Adding the Timer
-//Timer that counts down from 5
-function countdown() {
-    var timeLeft = 5;
- 
-    //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function() {
- 
-     console.log(timeLeft)
-        //As long as the 'timeleft' is greater than 1
-        if (timeLeft > 1) {
-            //Set the 'textContent' of the 'timerEl' to show the remaining seconds
-            timerEl.textContent = timeLeft + 'seconds remaining';
-            //Decrement 'timeleft' by 1
-            timeLeft--;
- 
-        }else if (timeLeft ===1) {
-            //When time left is equal to 1, rename to 'second' instead of seconds
-            timerEl.textContent = timeLeft + 'second remaining';
-            timeLeft--;
-        } else {
-            //Once 'timeLeft' gets to 0, set 'timerEl' to an empty string
-            timerEl.textContent = '';
-            //Use 'clearInterval()' to stop the timer
-            clearInterval(timeInterval);
-            //Call the 'displayMessage() function
-            displayMessage();
-        }
- 
-    }, 1000);
- }
-
-
-
 var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
@@ -112,23 +67,43 @@ function endGame(){
     $('#endScore').text(score)
     submitScore.style.display="block"
     container.style.display="none"
+
+    var lsScores = JSON.parse(localStorage.getItem('scores'));
+    if(lsScores != null){
+        var key = Object.keys(lsScores)[0];
+        if(lsScores[key] < score){
+            $('#save-high-score').show()
+        }
+    }else{
+        $('#save-high-score').show()
+    }
+
+    $(document).on('click','#submit-button', function(){
+        var initials = $('#initals').val();
+        if(initials != ''){
+
+            var highscore = {[initials]: score} 
+            var highscoreString =JSON.stringify(highscore);
+            localStorage.setItem('scores', highscoreString);
+        }else{
+            //handle initials where left empty
+        }
+
+    })
+   
+      
+    
 }
 
 
-var count = 50;
 
 //Use the querySelector to select the elements by their ids
 var countEl = document.querySelector('#count');
 var decrementEl = document.querySelector('#decrement');
-
-//Displays current count on the page
-function setCounterText() {
-    countEl.textContent = count;
-};
 //save score in addevent listener
 //Decrements the count on click and calls setCounterText()
 startBtn.addEventListener('click', function() {
-    var timeLeft = 5;
+    timeLeft = 60;
 
     //use the 'setInterval()' to call a function to be executed every 1000 milliseconds
     var timeInterval = setInterval(function() {
@@ -161,11 +136,7 @@ displayQuestions()
 
 //use local storage to store score and initials
 
-var highscore = {
-  'initials': score} 
 
-  var highscoreString =JSON.stringify(highscore);
-  localStorage.setItem(highscore,highscoreString);
 
 
 
