@@ -1,16 +1,14 @@
 # Coding-Quiz
-Challenge #4
+
 ![2021-07-07 (4)](https://user-images.githubusercontent.com/83742550/124858651-79f57400-df7c-11eb-90aa-c724477b4eee.png)
  https://flying-dink.github.io/Coding-Quiz/
-# ReadMe-Generator
+
 
 
 ## Description
- An app that produces a  professional Readme
+ An simple game built using javascript  that employs window prompts and a timer to test your knowledge of coding.
 
-## Table of Contents (Optional)
-
-If your README is very long, add a table of contents to make it easy for users to find what they need.
+## Table of Contents 
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -19,26 +17,22 @@ If your README is very long, add a table of contents to make it easy for users t
 
 
 ## Installation
-Install npm
+Click the link
 
 
 
 
 ## Usage 
-Answer the simple Questions
+Press start and the game begins
 
-![2021-08-08 (6)](https://user-images.githubusercontent.com/83742550/128620805-8a1a54e7-7100-4022-9ab6-87df561eae8a.png)
-Walk through video
-https://drive.google.com/file/d/1xD_3LtBa42svZO0PhK_L3hozq0_CvQmP/view
 
 
 
 ## License
 MIT
-The last section of a good README is a license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, use [https://choosealicense.com/](https://choosealicense.com/)
 
 
----
+
 
 
 
@@ -52,7 +46,7 @@ The last section of a good README is a license. This lets other developers know 
 
 
 ## Contributing
-Easy way to generate a readme
+Open Source
 
 
 
@@ -77,7 +71,6 @@ none
 
 
 ## Questions?
-
-Flying-Dink
-skyedoll@aol.com
+github.com/Flying-dink
+skydoll96@gmail.com
 
